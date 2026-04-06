@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Setup from "./components/Setup";
 import DailyCard from "./components/DailyCard";
+import SummaryCard from "./components/SummaryCard";
 import ProgressMap from "./components/ProgressMap";
 import Stopwatch from "./components/Stopwatch";
 
@@ -93,14 +94,18 @@ function App() {
 
       <main className="app-main">
         <div className="content-area">
-          <DailyCard
-            dayNumber={appData.currentDay}
-            tasks={appData.tasks}
-            onComplete={handleDayComplete}
-            isCompleted={appData.completedDays.some(
-              (day) => day.day === appData.currentDay
-            )}
-          />
+          {appData.completedDays.length === appData.days ? (
+            <SummaryCard appData={appData} onReset={resetApp} />
+          ) : (
+            <DailyCard
+              dayNumber={appData.currentDay}
+              tasks={appData.tasks}
+              onComplete={handleDayComplete}
+              isCompleted={appData.completedDays.some(
+                (day) => day.day === appData.currentDay
+              )}
+            />
+          )}
         </div>
 
         <aside className="sidebar">

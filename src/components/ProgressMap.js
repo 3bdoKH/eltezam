@@ -123,7 +123,7 @@ const ProgressMap = ({ totalDays, completedDays, currentDay, totalTasks, longTer
         </div>
       </div>
 
-      {currentDay > totalDays && (
+      {completedDays.length === totalDays && (
         <div className="completion-message">
           <h4>🎉 Congratulations!</h4>
           <p>You've completed your {totalDays}-day commitment!</p>
