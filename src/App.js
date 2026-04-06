@@ -5,11 +5,15 @@ import DailyCard from "./components/DailyCard";
 import SummaryCard from "./components/SummaryCard";
 import ProgressMap from "./components/ProgressMap";
 import Stopwatch from "./components/Stopwatch";
-import { Timer, Repeat } from "lucide-react";
+import Analytics from "./components/Analytics";
+import EditTasksModal from "./components/EditTasksModal";
+import { Timer, Repeat, Edit3, BarChart2, CheckSquare } from "lucide-react";
 
 function App() {
   const [isSetup, setIsSetup] = useState(false);
   const [showStopwatch, setShowStopwatch] = useState(false);
+  const [showEditTasks, setShowEditTasks] = useState(false);
+  const [activeTab, setActiveTab] = useState('daily');
   const [appData, setAppData] = useState({
     days: 0,
     tasks: [],
@@ -60,6 +64,13 @@ function App() {
     saveToLocalStorage(updatedData);
   };
 
+  const handleTasksUpdate = (newTasks) => {
+    const updatedData = { ...appData, tasks: newTasks };
+    setAppData(updatedData);
+    saveToLocalStorage(updatedData);
+    setShowEditTasks(false);
+  };
+
   const resetApp = () => {
     localStorage.removeItem("eltezamData");
     setAppData({
@@ -81,31 +92,47 @@ function App() {
       <header className="app-header">
         <h1>Eltezam - Long Term Goals</h1>
         <div className="header-controls">
+          <button className="edit-btn" onClick={() => setShowEditTasks(true)}>
+            {<Edit3 size={18} />} Edit Routine
+          </button>
           <button
             className="stopwatch-btn"
             onClick={() => setShowStopwatch(true)}
           >
-            {<Timer />} Stopwatch
+            {<Timer size={18} />} Stopwatch
           </button>
           <button className="reset-btn" onClick={resetApp}>
-            {<Repeat />} Reset
+            {<Repeat size={18} />} Reset
           </button>
         </div>
       </header>
 
       <main className="app-main">
         <div className="content-area">
-          {appData.completedDays.length === appData.days ? (
-            <SummaryCard appData={appData} onReset={resetApp} />
+          <div className="view-tabs">
+            <button className={activeTab === 'daily' ? 'active' : ''} onClick={() => setActiveTab('daily')}>
+              <CheckSquare size={18} style={{marginRight: '8px', verticalAlign: 'middle'}}/> Daily Check
+            </button>
+            <button className={activeTab === 'analytics' ? 'active' : ''} onClick={() => setActiveTab('analytics')}>
+              <BarChart2 size={18} style={{marginRight: '8px', verticalAlign: 'middle'}}/> Analytics
+            </button>
+          </div>
+
+          {activeTab === 'analytics' ? (
+            <Analytics appData={appData} />
           ) : (
-            <DailyCard
-              dayNumber={appData.currentDay}
-              tasks={appData.tasks}
-              onComplete={handleDayComplete}
-              isCompleted={appData.completedDays.some(
-                (day) => day.day === appData.currentDay
-              )}
-            />
+            appData.completedDays.length === appData.days ? (
+              <SummaryCard appData={appData} onReset={resetApp} />
+            ) : (
+              <DailyCard
+                dayNumber={appData.currentDay}
+                tasks={appData.tasks}
+                onComplete={handleDayComplete}
+                isCompleted={appData.completedDays.some(
+                  (day) => day.day === appData.currentDay
+                )}
+              />
+            )
           )}
         </div>
 
@@ -121,6 +148,14 @@ function App() {
       </main>
 
       {showStopwatch && <Stopwatch onClose={() => setShowStopwatch(false)} />}
+      
+      {showEditTasks && (
+        <EditTasksModal 
+          currentTasks={appData.tasks} 
+          onClose={() => setShowEditTasks(false)} 
+          onSave={handleTasksUpdate} 
+        />
+      )}
     </div>
   );
 }

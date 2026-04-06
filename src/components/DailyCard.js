@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import "./DailyCard.css";
 import { Check } from "lucide-react";
+import Confetti from "react-confetti";
+import { playDing } from "../utils/sound";
 
 const DailyCard = ({ dayNumber, tasks, onComplete, isCompleted }) => {
   const [checkedTasks, setCheckedTasks] = useState(
     new Array(tasks.length).fill(false)
   );
   const [isSubmitted, setIsSubmitted] = useState(isCompleted);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const handleCheckboxChange = (index) => {
     const newCheckedTasks = [...checkedTasks];
@@ -16,8 +19,17 @@ const DailyCard = ({ dayNumber, tasks, onComplete, isCompleted }) => {
 
   const handleSubmit = () => {
     const completedTasks = tasks.filter((_, index) => checkedTasks[index]);
-    onComplete(dayNumber, completedTasks);
+    
+    playDing();
+    setShowConfetti(true);
     setIsSubmitted(true);
+    
+    setTimeout(() => {
+      onComplete(dayNumber, completedTasks);
+      setShowConfetti(false);
+      setIsSubmitted(false);
+      setCheckedTasks(new Array(tasks.length).fill(false));
+    }, 2800);
   };
 
   const handleSubmitEmpty = () => {
@@ -47,6 +59,7 @@ const DailyCard = ({ dayNumber, tasks, onComplete, isCompleted }) => {
 
   return (
     <div className="daily-card">
+      {showConfetti && <Confetti recycle={false} numberOfPieces={300} gravity={0.3} />}
       <div className="card-header">
         <h2>Day {dayNumber}</h2>
         <div className="progress-indicator">
