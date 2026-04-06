@@ -111,8 +111,8 @@
 }
 
 .day-indicator.current {
-  background: var(--accent-primary);
-  color: white;
+  background: var(--accent-secondary);
+  color: rgb(0, 0, 0);
   border-color: var(--accent-primary);
   box-shadow: 0 0 15px var(--accent-glow);
   animation: pulse-current 2s infinite;
@@ -124,7 +124,7 @@
   }
 
   70% {
-    box-shadow: 0 0 0 10px rgba(139, 92, 246, 0);
+    box-shadow: 0 0 0 5px rgba(139, 92, 246, 0);
   }
 
   100% {
@@ -179,7 +179,7 @@
 }
 
 .legend-color.current {
-  background: var(--accent-primary);
+  background: var(--accent-secondary);
   box-shadow: 0 0 8px var(--accent-glow);
 }
 

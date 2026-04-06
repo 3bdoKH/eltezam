@@ -5,6 +5,7 @@ import DailyCard from "./components/DailyCard";
 import SummaryCard from "./components/SummaryCard";
 import ProgressMap from "./components/ProgressMap";
 import Stopwatch from "./components/Stopwatch";
+import { Timer, Repeat } from "lucide-react";
 
 function App() {
   const [isSetup, setIsSetup] = useState(false);
@@ -84,10 +85,10 @@ function App() {
             className="stopwatch-btn"
             onClick={() => setShowStopwatch(true)}
           >
-            ⏱️ Stopwatch
+            {<Timer />} Stopwatch
           </button>
           <button className="reset-btn" onClick={resetApp}>
-            🔄 Reset
+            {<Repeat />} Reset
           </button>
         </div>
       </header>

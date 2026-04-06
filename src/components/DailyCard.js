@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./DailyCard.css";
+import { Check } from "lucide-react";
 
 const DailyCard = ({ dayNumber, tasks, onComplete, isCompleted }) => {
   const [checkedTasks, setCheckedTasks] = useState(
@@ -34,7 +35,7 @@ const DailyCard = ({ dayNumber, tasks, onComplete, isCompleted }) => {
       <div className="daily-card completed">
         <div className="card-header">
           <h2>Day {dayNumber - 1}</h2>
-          <span className="status completed-status">✅ Completed</span>
+          <span className="status completed-status">{<Check />} Completed</span>
         </div>
         <div className="completion-message">
           <p>Great job! You've completed Day {dayNumber - 1}.</p>

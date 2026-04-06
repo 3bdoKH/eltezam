@@ -43,28 +43,28 @@ const Setup = ({ onSetupComplete }) => {
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!days || days < 1 || days > 365) {
       newErrors.days = 'Please enter a valid number of days (1-365)';
     }
-    
+
     const validTasks = tasks.filter(task => task.trim() !== '');
     if (validTasks.length === 0) {
       newErrors.tasks = 'Please add at least one task';
     }
-    
+
     const validGoals = goals.filter(goal => goal.trim() !== '');
     if (validGoals.length === 0) {
       newErrors.goals = 'Please add at least one long term goal';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (validateForm()) {
       const validTasks = tasks.filter(task => task.trim() !== '');
       const validGoals = goals.filter(goal => goal.trim() !== '');
@@ -79,10 +79,10 @@ const Setup = ({ onSetupComplete }) => {
         <p className="setup-description">
           Set up your long-term commitment journey. Define how many days you want to commit to and what tasks you'll accomplish each day.
         </p>
-        
+
         <form onSubmit={handleSubmit} className="setup-form">
           <div className="form-group">
-            <label htmlFor="days">Number of Days to Commit:</label>
+            <label className='setup-label' htmlFor="days">Number of Days to Commit:</label>
             <input
               type="number"
               id="days"
@@ -91,13 +91,13 @@ const Setup = ({ onSetupComplete }) => {
               placeholder="e.g., 30"
               min="1"
               max="365"
-              className={errors.days ? 'error' : ''}
+              className={`setup-input ${errors.days ? 'error' : ''}`}
             />
             {errors.days && <span className="error-message">{errors.days}</span>}
           </div>
 
           <div className="form-group">
-            <label>Long Term Goals:</label>
+            <label className='setup-label'>Long Term Goals:</label>
             <div className="tasks-container">
               {goals.map((goal, index) => (
                 <div key={index} className="task-input-group">
@@ -106,7 +106,7 @@ const Setup = ({ onSetupComplete }) => {
                     value={goal}
                     onChange={(e) => handleGoalChange(index, e.target.value)}
                     placeholder={`Goal ${index + 1}`}
-                    className={errors.goals ? 'error' : ''}
+                    className={`setup-input ${errors.goals ? 'error' : ''}`}
                   />
                   {goals.length > 1 && (
                     <button
@@ -121,7 +121,7 @@ const Setup = ({ onSetupComplete }) => {
               ))}
             </div>
             {errors.goals && <span className="error-message">{errors.goals}</span>}
-            
+
             <button
               type="button"
               onClick={handleAddGoal}
@@ -132,7 +132,7 @@ const Setup = ({ onSetupComplete }) => {
           </div>
 
           <div className="form-group">
-            <label>Daily Tasks:</label>
+            <label className='setup-label'>Daily Tasks:</label>
             <div className="tasks-container">
               {tasks.map((task, index) => (
                 <div key={index} className="task-input-group">
@@ -141,7 +141,7 @@ const Setup = ({ onSetupComplete }) => {
                     value={task}
                     onChange={(e) => handleTaskChange(index, e.target.value)}
                     placeholder={`Task ${index + 1}`}
-                    className={errors.tasks ? 'error' : ''}
+                    className={`setup-input ${errors.tasks ? 'error' : ''}`}
                   />
                   {tasks.length > 1 && (
                     <button
@@ -156,7 +156,7 @@ const Setup = ({ onSetupComplete }) => {
               ))}
             </div>
             {errors.tasks && <span className="error-message">{errors.tasks}</span>}
-            
+
             <button
               type="button"
               onClick={handleAddTask}
