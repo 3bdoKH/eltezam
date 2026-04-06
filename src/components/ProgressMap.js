@@ -1,7 +1,7 @@
 import React from "react";
 import "./ProgressMap.css";
 
-const ProgressMap = ({ totalDays, completedDays, currentDay, totalTasks }) => {
+const ProgressMap = ({ totalDays, completedDays, currentDay, totalTasks, longTermGoals = [] }) => {
   const getDayStatus = (dayNumber) => {
     const completedDay = completedDays.find((day) => day.day === dayNumber);
     if (completedDay) {
@@ -127,6 +127,17 @@ const ProgressMap = ({ totalDays, completedDays, currentDay, totalTasks }) => {
         <div className="completion-message">
           <h4>🎉 Congratulations!</h4>
           <p>You've completed your {totalDays}-day commitment!</p>
+        </div>
+      )}
+
+      {longTermGoals && longTermGoals.length > 0 && (
+        <div className="long-term-goals">
+          <h4>Long Term Goals</h4>
+          <ul>
+            {longTermGoals.map((goal, index) => (
+              <li key={index}>{goal}</li>
+            ))}
+          </ul>
         </div>
       )}
     </div>

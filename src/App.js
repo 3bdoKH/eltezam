@@ -11,6 +11,7 @@ function App() {
   const [appData, setAppData] = useState({
     days: 0,
     tasks: [],
+    longTermGoals: [],
     completedDays: [],
     currentDay: 1,
   });
@@ -19,6 +20,9 @@ function App() {
     const savedData = localStorage.getItem("eltezamData");
     if (savedData) {
       const parsedData = JSON.parse(savedData);
+      if (!parsedData.longTermGoals) {
+        parsedData.longTermGoals = [];
+      }
       setAppData(parsedData);
       setIsSetup(true);
     }
@@ -28,10 +32,11 @@ function App() {
     localStorage.setItem("eltezamData", JSON.stringify(data));
   };
 
-  const handleSetupComplete = (days, tasks) => {
+  const handleSetupComplete = (days, tasks, goals) => {
     const newData = {
       days: days,
       tasks: tasks,
+      longTermGoals: goals,
       completedDays: [],
       currentDay: 1,
     };
@@ -58,6 +63,7 @@ function App() {
     setAppData({
       days: 0,
       tasks: [],
+      longTermGoals: [],
       completedDays: [],
       currentDay: 1,
     });
@@ -103,6 +109,7 @@ function App() {
             completedDays={appData.completedDays}
             currentDay={appData.currentDay}
             totalTasks={appData.tasks.length}
+            longTermGoals={appData.longTermGoals}
           />
         </aside>
       </main>

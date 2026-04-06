@@ -4,6 +4,7 @@ import './Setup.css';
 const Setup = ({ onSetupComplete }) => {
   const [days, setDays] = useState('');
   const [tasks, setTasks] = useState(['']);
+  const [goals, setGoals] = useState(['']);
   const [errors, setErrors] = useState({});
 
   const handleAddTask = () => {
@@ -23,6 +24,23 @@ const Setup = ({ onSetupComplete }) => {
     setTasks(newTasks);
   };
 
+  const handleAddGoal = () => {
+    setGoals([...goals, '']);
+  };
+
+  const handleRemoveGoal = (index) => {
+    if (goals.length > 1) {
+      const newGoals = goals.filter((_, i) => i !== index);
+      setGoals(newGoals);
+    }
+  };
+
+  const handleGoalChange = (index, value) => {
+    const newGoals = [...goals];
+    newGoals[index] = value;
+    setGoals(newGoals);
+  };
+
   const validateForm = () => {
     const newErrors = {};
     
@@ -35,6 +53,11 @@ const Setup = ({ onSetupComplete }) => {
       newErrors.tasks = 'Please add at least one task';
     }
     
+    const validGoals = goals.filter(goal => goal.trim() !== '');
+    if (validGoals.length === 0) {
+      newErrors.goals = 'Please add at least one long term goal';
+    }
+    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -44,7 +67,8 @@ const Setup = ({ onSetupComplete }) => {
     
     if (validateForm()) {
       const validTasks = tasks.filter(task => task.trim() !== '');
-      onSetupComplete(parseInt(days), validTasks);
+      const validGoals = goals.filter(goal => goal.trim() !== '');
+      onSetupComplete(parseInt(days), validTasks, validGoals);
     }
   };
 
@@ -70,6 +94,41 @@ const Setup = ({ onSetupComplete }) => {
               className={errors.days ? 'error' : ''}
             />
             {errors.days && <span className="error-message">{errors.days}</span>}
+          </div>
+
+          <div className="form-group">
+            <label>Long Term Goals:</label>
+            <div className="tasks-container">
+              {goals.map((goal, index) => (
+                <div key={index} className="task-input-group">
+                  <input
+                    type="text"
+                    value={goal}
+                    onChange={(e) => handleGoalChange(index, e.target.value)}
+                    placeholder={`Goal ${index + 1}`}
+                    className={errors.goals ? 'error' : ''}
+                  />
+                  {goals.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveGoal(index)}
+                      className="remove-task-btn"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+            {errors.goals && <span className="error-message">{errors.goals}</span>}
+            
+            <button
+              type="button"
+              onClick={handleAddGoal}
+              className="add-task-btn"
+            >
+              + Add Another Goal
+            </button>
           </div>
 
           <div className="form-group">

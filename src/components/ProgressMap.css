@@ -206,6 +206,48 @@
   opacity: 0.9;
 }
 
+/* Long Term Goals styling */
+.long-term-goals {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  border-radius: 12px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.long-term-goals h4 {
+  color: #4a5568;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
+.long-term-goals ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.long-term-goals li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 0.95rem;
+  color: #4a5568;
+  line-height: 1.4;
+}
+
+.long-term-goals li::before {
+  content: '🎯';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 0.9rem;
+}
+
 /* Custom scrollbar for days grid */
 .days-grid::-webkit-scrollbar {
   width: 6px;
