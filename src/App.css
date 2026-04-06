@@ -1,41 +1,32 @@
-/* Reset and base styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
-  color: #333;
-}
-
 .app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* Header styles */
 .app-header {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  padding: 1rem 2rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 1.2rem 5%;
+  background: rgba(8, 8, 10, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-glass);
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
 .app-header h1 {
-  color: #4a5568;
+  margin: 0;
   font-size: 1.8rem;
   font-weight: 700;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
 }
 
 .header-controls {
@@ -43,104 +34,61 @@ body {
   gap: 1rem;
 }
 
-.stopwatch-btn, .reset-btn {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 600;
+.header-controls button {
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  color: var(--text-primary);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--border-radius-sm);
+  font-weight: 500;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.stopwatch-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-}
-
-.stopwatch-btn:hover {
+.header-controls button:hover {
+  background: var(--bg-glass-hover);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 .reset-btn {
-  background: #e53e3e;
-  color: white;
+  color: var(--danger) !important;
 }
 
 .reset-btn:hover {
-  background: #c53030;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.4);
+  background: rgba(244, 63, 94, 0.1) !important;
+  border-color: rgba(244, 63, 94, 0.3) !important;
+  box-shadow: 0 4px 20px var(--danger-glow) !important;
 }
 
-/* Main content area */
 .app-main {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 2.5rem;
+  padding: 2.5rem 5%;
   flex: 1;
-  display: flex;
-  gap: 2rem;
-  padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
 }
 
 .content-area {
-  flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .sidebar {
-  width: 300px;
-  flex-shrink: 0;
+  position: relative;
 }
 
-/* Responsive design */
 @media (max-width: 1024px) {
   .app-main {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .sidebar {
-    width: 100%;
-  }
-}
-
-@media (max-width: 768px) {
-  .app-header {
-    padding: 1rem;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .app-header h1 {
-    font-size: 1.5rem;
-  }
-  
-  .header-controls {
-    width: 100%;
-    justify-content: center;
-  }
-  
-  .app-main {
-    padding: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .header-controls {
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  .stopwatch-btn, .reset-btn {
-    width: 100%;
-    justify-content: center;
+    grid-template-columns: 1fr;
   }
 }

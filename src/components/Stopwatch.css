@@ -4,46 +4,35 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  animation: fadeIn 0.3s ease-out;
+  animation: fadeIn 0.3s ease;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .stopwatch-popup {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  max-width: 400px;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--border-radius-lg);
+  padding: 2.5rem;
   width: 90%;
-  max-height: 80vh;
-  overflow-y: auto;
-  animation: slideUp 0.3s ease-out;
+  max-width: 450px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+  animation: jumpIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes jumpIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
 .stopwatch-header {
@@ -51,57 +40,45 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
-  padding-bottom: 1rem;
-  border-bottom: 2px solid #e2e8f0;
 }
 
 .stopwatch-header h2 {
-  color: #4a5568;
+  margin: 0;
   font-size: 1.5rem;
-  font-weight: 700;
+  color: var(--text-primary);
 }
 
 .close-btn {
-  background: none;
+  background: transparent;
   border: none;
   font-size: 1.5rem;
-  color: #718096;
   cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
 }
 
 .close-btn:hover {
-  background: #f7fafc;
-  color: #4a5568;
+  color: var(--text-primary);
 }
 
 .stopwatch-display {
-  text-align: center;
-  margin-bottom: 2rem;
-  padding: 2rem;
-  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-  border-radius: 15px;
-  border: 2px solid #e2e8f0;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2.5rem;
 }
 
 .time-display {
-  font-family: 'Courier New', monospace;
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #4a5568;
-  letter-spacing: 2px;
+  font-size: 4.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -2px;
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
 }
 
 .stopwatch-controls {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin-bottom: 2rem;
 }
@@ -109,75 +86,77 @@
 .control-btn {
   padding: 1rem;
   border: none;
-  border-radius: 12px;
+  border-radius: var(--border-radius-sm);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  transition: all 0.3s ease;
 }
 
 .start-btn {
-  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  background: var(--success);
   color: white;
+  box-shadow: 0 4px 15px var(--success-glow);
 }
 
 .start-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(72, 187, 120, 0.4);
+  box-shadow: 0 8px 20px var(--success-glow);
 }
 
 .pause-btn {
-  background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+  background: #f59e0b;
   color: white;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
 }
 
 .pause-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(237, 137, 54, 0.4);
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
 }
 
 .lap-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: var(--bg-glass);
+  color: var(--text-primary);
+  border: 1px solid var(--border-glass);
 }
 
 .lap-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.3);
 }
 
 .lap-btn:disabled {
-  background: #cbd5e0;
+  opacity: 0.5;
   cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
 }
 
-.reset-btn {
-  background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+.stopwatch-controls .reset-btn {
+  background: rgba(244, 63, 94, 0.1);
+  color: var(--danger);
+  border: 1px solid rgba(244, 63, 94, 0.2);
+}
+
+.stopwatch-controls .reset-btn:hover {
+  background: var(--danger);
   color: white;
-}
-
-.reset-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(229, 62, 62, 0.4);
+  border-color: var(--danger);
+  box-shadow: 0 4px 15px var(--danger-glow);
 }
 
 .laps-container {
-  border-top: 2px solid #e2e8f0;
+  border-top: 1px solid var(--border-glass);
   padding-top: 1.5rem;
 }
 
 .laps-container h3 {
-  color: #4a5568;
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  text-align: center;
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  color: var(--text-secondary);
 }
 
 .laps-list {
@@ -186,101 +165,29 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding-right: 0.5rem;
 }
+
+.laps-list::-webkit-scrollbar { width: 4px; }
+.laps-list::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 2px; }
+.laps-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
 
 .lap-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   padding: 0.8rem;
-  background: #f7fafc;
-  border-radius: 8px;
-  border: 1px solid #e2e8f0;
-  transition: all 0.3s ease;
-}
-
-.lap-item:hover {
-  background: #edf2f7;
-  transform: translateX(5px);
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--border-glass);
 }
 
 .lap-number {
-  font-weight: 600;
-  color: #4a5568;
-  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
 }
 
 .lap-time {
-  font-family: 'Courier New', monospace;
-  font-weight: 700;
-  color: #2d3748;
-  font-size: 0.9rem;
-}
-
-/* Custom scrollbar for laps list */
-.laps-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.laps-list::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 3px;
-}
-
-.laps-list::-webkit-scrollbar-thumb {
-  background: #cbd5e0;
-  border-radius: 3px;
-}
-
-.laps-list::-webkit-scrollbar-thumb:hover {
-  background: #a0aec0;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .stopwatch-popup {
-    padding: 1.5rem;
-    margin: 1rem;
-  }
-  
-  .time-display {
-    font-size: 2rem;
-  }
-  
-  .stopwatch-controls {
-    grid-template-columns: 1fr;
-    gap: 0.8rem;
-  }
-  
-  .control-btn {
-    padding: 0.8rem;
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .stopwatch-popup {
-    padding: 1rem;
-  }
-  
-  .stopwatch-header h2 {
-    font-size: 1.3rem;
-  }
-  
-  .time-display {
-    font-size: 1.8rem;
-    letter-spacing: 1px;
-  }
-  
-  .stopwatch-display {
-    padding: 1.5rem;
-  }
-  
-  .lap-item {
-    padding: 0.6rem;
-  }
-  
-  .lap-number, .lap-time {
-    font-size: 0.8rem;
-  }
+  color: var(--text-primary);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
