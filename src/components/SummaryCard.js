@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import './SummaryCard.css';
-import Confetti from 'react-confetti';
 import { playDing } from '../utils/sound';
 
 const SummaryCard = ({ appData, onReset }) => {
@@ -19,7 +18,6 @@ const SummaryCard = ({ appData, onReset }) => {
 
   return (
     <div className="summary-card">
-      <Confetti numberOfPieces={300} recycle={true} />
       <div className="summary-header">
         <h2>🎉 Journey Complete!</h2>
         <p>You have finished your {days}-day commitment.</p>

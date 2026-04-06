@@ -7,6 +7,7 @@ import ProgressMap from "./components/ProgressMap";
 import Stopwatch from "./components/Stopwatch";
 import Analytics from "./components/Analytics";
 import EditTasksModal from "./components/EditTasksModal";
+import Confetti from "react-confetti";
 import { Timer, Repeat, Edit3, BarChart2, CheckSquare } from "lucide-react";
 
 function App() {
@@ -89,6 +90,15 @@ function App() {
 
   return (
     <div className="app">
+      {
+        appData.completedDays.length === appData.days && (
+          <Confetti
+            numberOfPieces={300}
+            recycle={false}
+            style={{ width: '100%', height: '100%' }}
+          />
+        )
+      }
       <header className="app-header">
         <h1>Eltezam - Long Term Goals</h1>
         <div className="header-controls">
@@ -111,10 +121,10 @@ function App() {
         <div className="content-area">
           <div className="view-tabs">
             <button className={activeTab === 'daily' ? 'active' : ''} onClick={() => setActiveTab('daily')}>
-              <CheckSquare size={18} style={{marginRight: '8px', verticalAlign: 'middle'}}/> Daily Check
+              <CheckSquare size={18} style={{ marginRight: '8px', verticalAlign: 'middle' }} /> Daily Check
             </button>
             <button className={activeTab === 'analytics' ? 'active' : ''} onClick={() => setActiveTab('analytics')}>
-              <BarChart2 size={18} style={{marginRight: '8px', verticalAlign: 'middle'}}/> Analytics
+              <BarChart2 size={18} style={{ marginRight: '8px', verticalAlign: 'middle' }} /> Analytics
             </button>
           </div>
 
@@ -148,12 +158,12 @@ function App() {
       </main>
 
       {showStopwatch && <Stopwatch onClose={() => setShowStopwatch(false)} />}
-      
+
       {showEditTasks && (
-        <EditTasksModal 
-          currentTasks={appData.tasks} 
-          onClose={() => setShowEditTasks(false)} 
-          onSave={handleTasksUpdate} 
+        <EditTasksModal
+          currentTasks={appData.tasks}
+          onClose={() => setShowEditTasks(false)}
+          onSave={handleTasksUpdate}
         />
       )}
     </div>

@@ -19,11 +19,11 @@ const DailyCard = ({ dayNumber, tasks, onComplete, isCompleted }) => {
 
   const handleSubmit = () => {
     const completedTasks = tasks.filter((_, index) => checkedTasks[index]);
-    
+
     playDing();
     setShowConfetti(true);
     setIsSubmitted(true);
-    
+
     setTimeout(() => {
       onComplete(dayNumber, completedTasks);
       setShowConfetti(false);
@@ -33,8 +33,13 @@ const DailyCard = ({ dayNumber, tasks, onComplete, isCompleted }) => {
   };
 
   const handleSubmitEmpty = () => {
-    onComplete(dayNumber, []);
     setIsSubmitted(true);
+
+    setTimeout(() => {
+      onComplete(dayNumber, []);
+      setIsSubmitted(false);
+      setCheckedTasks(new Array(tasks.length).fill(false));
+    }, 1500);
   };
 
   const getProgressPercentage = () => {
@@ -46,12 +51,12 @@ const DailyCard = ({ dayNumber, tasks, onComplete, isCompleted }) => {
     return (
       <div className="daily-card completed">
         <div className="card-header">
-          <h2>Day {dayNumber - 1}</h2>
+          <h2>Day {dayNumber}</h2>
           <span className="status completed-status">{<Check />} Completed</span>
         </div>
         <div className="completion-message">
-          <p>Great job! You've completed Day {dayNumber - 1}.</p>
-          <p>Come back tomorrow for Day {dayNumber}!</p>
+          <p>Great job! You've completed Day {dayNumber}.</p>
+          <p>Come back tomorrow for Day {dayNumber + 1}!</p>
         </div>
       </div>
     );
