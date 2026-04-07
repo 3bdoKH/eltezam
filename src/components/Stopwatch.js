@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Stopwatch.css';
-
+import { Play, Pause, RotateCcw } from 'lucide-react';
 const Stopwatch = ({ onClose }) => {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [laps, setLaps] = useState([]);
   const intervalRef = useRef(null);
 
   useEffect(() => {
@@ -30,13 +29,6 @@ const Stopwatch = ({ onClose }) => {
   const resetStopwatch = () => {
     setIsRunning(false);
     setTime(0);
-    setLaps([]);
-  };
-
-  const addLap = () => {
-    if (isRunning) {
-      setLaps(prevLaps => [...prevLaps, time]);
-    }
   };
 
   const formatTime = (timeInMs) => {
@@ -69,37 +61,19 @@ const Stopwatch = ({ onClose }) => {
 
         <div className="stopwatch-controls">
           {!isRunning ? (
-            <button className="control-btn start-btn" onClick={startStopwatch}>
-              ▶️ Start
+            <button className="control-btn start-btn-watch" onClick={startStopwatch}>
+              {<Play />} Start
             </button>
           ) : (
             <button className="control-btn pause-btn" onClick={pauseStopwatch}>
-              ⏸️ Pause
+              {<Pause />} Pause
             </button>
           )}
-          
-          <button className="control-btn lap-btn" onClick={addLap} disabled={!isRunning}>
-            ⏱️ Lap
-          </button>
-          
+
           <button className="control-btn reset-btn" onClick={resetStopwatch}>
-            🔄 Reset
+            {<RotateCcw />} Reset
           </button>
         </div>
-
-        {laps.length > 0 && (
-          <div className="laps-container">
-            <h3>Laps</h3>
-            <div className="laps-list">
-              {laps.map((lapTime, index) => (
-                <div key={index} className="lap-item">
-                  <span className="lap-number">Lap {index + 1}</span>
-                  <span className="lap-time">{formatTime(lapTime)}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

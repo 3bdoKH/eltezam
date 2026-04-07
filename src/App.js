@@ -100,10 +100,10 @@ function App() {
         )
       }
       <header className="app-header">
-        <h1>Eltezam - Long Term Goals</h1>
+        <h1>Eltezam</h1>
         <div className="header-controls">
           <button className="edit-btn" onClick={() => setShowEditTasks(true)}>
-            {<Edit3 size={18} />} Edit Routine
+            {<Edit3 size={18} />} Edit
           </button>
           <button
             className="stopwatch-btn"

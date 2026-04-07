@@ -90,7 +90,7 @@
 
 .stopwatch-controls {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   margin-bottom: 2rem;
 }
@@ -109,12 +109,12 @@
   transition: all 0.3s ease;
 }
 
-.start-btn {
+.start-btn-watch {
   background: var(--success);
   color: white;
 }
 
-.start-btn:hover {
+.start-btn-watch:hover {
   box-shadow: 0 8px 20px var(--success-glow);
 }
 
